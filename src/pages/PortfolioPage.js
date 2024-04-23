@@ -3,43 +3,44 @@ import axios from 'axios';
 import { Grid, Card, CardContent, Typography, CardActionArea, Box, CardMedia} from '@mui/material';
 import { GitHub as GitHubIcon, Description as DescriptionIcon, StarBorder as StarBorderIcon } from '@mui/icons-material';
 
+const API_KEY= "19e6e104bad3bf8ba90d715c55b808e6";
+
 const PortfolioPage = () => {
-    const [photos, setPhotos] = useState([]); // State to store the repositories
+    const [photos, setPhotos] = useState([]); // State to store the photos
     const [loading, setLoading] = useState(true);
-    const [views, setViews] = useState([]);
 
     useEffect(() => {
       const fetchPhotos = async () => {
-        try {
-          const response = await axios.get('https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=19e6e104bad3bf8ba90d715c55b808e6&user_id=200520874%40N03&format=json&nojsoncallback=1');
-          setPhotos(response.data.photos.photo);
+      try {
+        const response = await axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&user_id=200520874%40N03&format=json&nojsoncallback=1`);
+        
+        const newphotos = response.data.photos.photo.map(async (photo) => {
+        const photo_id = photo.id;
+        const photo_info = await fetchPhotoInfo(photo_id);
 
-        } catch (error) {
-          console.error("Error fetching data: ", error);
-        }
-
-        response.data.photos.map((photo) => {
-          const photo_id = photo.id;
-
-          const photo_views = views.photo_id.views;
-
+        return { ...photo, photo_info };
+    
         });
+    
+        const photosWithInfo = await Promise.all(newphotos);
+        setPhotos(photosWithInfo);
 
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
       };
 
-      const fetchViews = async (photo_id) => {
-        try {
-          const photo_info = await axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=19e6e104bad3bf8ba90d715c55b808e6&photo_id=${photo_id}&format=json&nojsoncallback=1`);
-          setViews(photo_info.views);
+      const fetchPhotoInfo = async (photo_id) => {
+      try {
+        const photo_info = await axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${API_KEY}&photo_id=${photo_id}&format=json&nojsoncallback=1`);
+        return photo_info.data.photo;
 
-        } catch (error) {
-          console.error("Error fetching data: ", error);
-        }
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
       };
-          
-          
+        
       fetchPhotos();
-      fetchViews(photos)
     }, []); // Empty dependency array means this effect runs once on mount
 
     return (
@@ -47,7 +48,7 @@ const PortfolioPage = () => {
         {photos.map((photo) => (
           <Grid item xs={12} sm={6} md={4} key={photo.id}>
             <Card elevation={4}>
-              <CardActionArea component="a" href={`https://www.flickr.com/photos/${photo.owner}/${photo.id}/`} target="_blank" rel="noopener noreferrer">
+              <CardActionArea component="a" href= {`${photo.photo_info.urls.url[0]._content}`} target="_blank" rel="noopener noreferrer">
                 <CardContent>
                   <Typography gutterBottom variant="h6" component="div">
                     <GitHubIcon fontSize="small" style={{ verticalAlign: 'middle', marginRight: 5 }} />
@@ -62,13 +63,16 @@ const PortfolioPage = () => {
                   <Box display="flex" alignItems="center" marginBottom={2}>
                     <DescriptionIcon fontSize="small" style={{ marginRight: 5 }} />
                     <Typography variant="body2" color="textSecondary">
-                      { photo.title || "No description available."}
+                      { photo.photo_info.description._content|| "No description available."}
                     </Typography>
                   </Box>
                   <Box display="flex" alignItems="center">
                     <StarBorderIcon fontSize="small" style={{ marginRight: 5 }} />
                     <Typography variant="body2" color="textSecondary">
-                      { photo.owner } Stars
+                      { photo.photo_info.views } Views
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      { photo.photo_info.comments._content } Comments
                     </Typography>
                   </Box>
                 </CardContent>
@@ -82,4 +86,3 @@ const PortfolioPage = () => {
 };
 
 export default PortfolioPage;
-
