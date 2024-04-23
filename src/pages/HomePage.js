@@ -3,17 +3,26 @@ import { Link } from 'react-router-dom'; // Import the Link component
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to my portfolio website!</p>
-      <nav>
-        <ul>
-          <li><Link to="/about">About Me</Link></li> {/* Link to the About page */}
-          <li><Link to="/resume">Resume</Link></li> {/* Link to the Resume page */}
-          <li><Link to="/portfolio">Portfolio</Link></li> {/* Link to the Portfolio page */}
-        </ul>
-      </nav>
-    </div>
+    <section id="heroSection" className="hero--section">
+      <div className="hero--section--content--box">
+        <div className="hero--section--content">
+          <p className="section--title">Hey, I'm John</p>
+          <h1 className="hero--section--title">
+            <span className="hero--section-title--color">Full Stack</span>{" "}
+            <br />
+            Developer
+          </h1>
+          <p className="hero--section-description">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            <br /> Dolorum, quas. Amet soluta assumenda cum?
+          </p>
+        </div>
+        <button className="btn btn-primary">Get In Touch</button>
+      </div>
+      <div className="hero--section--img">
+        <img src="../public/OIG4.jpeg" alt="Hero Section" />
+      </div>
+    </section>
   );
 };
 
