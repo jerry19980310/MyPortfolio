@@ -5,8 +5,11 @@ const HomePage = () => {
   return (
     <section id="heroSection" className="hero--section">
       <div className="hero--section--content--box">
+        <div className="hero--section--img">
+          <img src="./OIG4.jpeg" alt="Hero Section" />
+        </div>
         <div className="hero--section--content">
-          <p className="section--title">Welcome to Jerry's Photography Hub!</p>
+          <p className="section--title">Welcome to Jerry's Photography world!</p>
           <h1 className="hero--section--title">
             <span className="hero--section-title--color">Professional</span>{" "}
             <br />
@@ -20,7 +23,7 @@ const HomePage = () => {
         <button className="btn btn-primary">Get In Touch</button>
       </div>
       <div className="hero--section--img">
-        <img src="../public/OIG4.jpeg" alt="Hero Section" />
+        <img src="./Designer2.png" alt="Hero Section" />
       </div>
     </section>
   );

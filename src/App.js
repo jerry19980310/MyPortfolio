@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import NavBar from './pages/NavBar';
+import NavBar from './components/NavBar';
 import AppBar from './pages/AppBar';
+import SwipeableTemporaryDrawer from './pages/test';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ResumePage from './pages/ResumePage';

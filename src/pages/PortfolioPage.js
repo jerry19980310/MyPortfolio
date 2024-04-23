@@ -72,6 +72,7 @@ const PortfolioPage = () => {
                 label="Controlled picker"
                 value={selectDate}
                 onChange={(newValue) => setSelectDate(newValue)}
+                maxDate={dayjs().subtract(10, 'day')}
               />
             </DemoContainer>
           </LocalizationProvider>
