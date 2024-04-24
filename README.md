@@ -13,14 +13,14 @@ Contributions to the development of this application are welcome! If you'd like 
 6. Submit a pull request to the main repository, describing your changes in detail.
 
 # Features
--Display a photographer's Flickr photos on a website.
+- Display a photographer's Flickr photos on a website.
 -Customize the display layout and design.
 -Provide navigation options for visitors to browse through different albums or categories.
 -Support responsive design for optimal viewing on various devices.
 
 # Dependencies
 
-*Flickr API: Allows fetching photos and related data from a Flickr account.
+* Flickr API: Allows fetching photos and related data from a Flickr account.
 *NASA API: Allows fetching Earth photos and related data from NASA.
 *React: A JavaScript library for building user interfaces. It provides a component-based architecture for creating reusable UI components.
 *Material-UI (MUI): A popular React UI framework that implements Google's Material Design principles. It offers a set of pre-designed components and styles to build modern and visually appealing user interfaces.
@@ -98,10 +98,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-# applications architecture
+# Applications architecture
 
 This application utilizes React's useState and useEffect along with Material-UI components to create a modern and visually appealing user interface. With dynamic state management and seamless integration of Material-UI's pre-designed components, our application offers an intuitive user experience. Whether it's managing component-level states, handling data fetching, or customizing the UI, our architecture ensures scalability and maintainability for building responsive and feature-rich React applications.
 
-# report issues
+# Report issues
 
 If you encounter any issues or have suggestions for improvement, please report them by opening a new issue on the GitHub repository or emailing us [Jerry](N11428911@qut.edu.au). Be sure to provide detailed information about the problem or suggestion.
