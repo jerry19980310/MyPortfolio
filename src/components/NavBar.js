@@ -18,7 +18,7 @@ const NavBar = () => {
     return (
         <AppBar position="static">
             <Toolbar variant="dense">
-                <IconButton size="large" edge="start" color="inherit" aria-label="logop" sx={{display:{xs:'none', md:'flex'}}} ><LandscapeIcon/></IconButton>
+                <IconButton size="large" edge="start" color="inherit" aria-label="logop" sx={{display:{xs:'none', md:'flex'}}} component={RouterLink} to={"/"}><LandscapeIcon/></IconButton>
                 <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 , display:{xs:'none', md:'flex'}}}>
                     My Portfolio
                 </Typography>
