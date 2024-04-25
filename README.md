@@ -98,6 +98,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+## Setting your environment
+
+- REACT_APP_API_KEY_FLICKR
+- REACT_APP_FLICKR_USER_ID
+- REACT_APP_API_KEY_NASA
+
 # Applications architecture
 
 This application utilizes React's useState and useEffect along with Material-UI components to create a modern and visually appealing user interface. With dynamic state management and seamless integration of Material-UI's pre-designed components, our application offers an intuitive user experience. Whether it's managing component-level states, handling data fetching, or customizing the UI, our architecture ensures scalability and maintainability for building responsive and feature-rich React applications.
