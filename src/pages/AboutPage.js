@@ -1,45 +1,45 @@
-import React from "react";
+import { Container, Grid, Typography, Button, Box } from '@mui/material';
+import { Link } from 'react-router-dom';
+import PhotographerImg from '../assets/Designer4.png';
 
-const AboutPage = () => {
+const About = () => {
   return (
-    <div>
-      <h1>About Me</h1>
-      <img src="./Designer6.png" alt="Hero Section" />
-      <p>
-        Hi there! I'm Jerry, a passionate photographer.
-        <br />
-        To me, photography is not just about capturing images; it's a way of
-        expressing emotions and sharing stories.
-        <br />I love using my lens to capture the beauty of life's moments and
-        transforming them into endlessly inspiring works.
-        <br />
-        My photography style is diverse, ranging from landscapes to portraits,
-        from urban street photography to natural scenery.
-        <br />
-        Each photograph is a conversation between me and the world.
-        <br />I firmly believe that every frame carries its own unique emotion
-        and meaning, and my goal is to convey that emotion to the audience
-        through my work, allowing them to experience what I see and feel.
-        <br />
-        This website is a part of my photographic journey, and I hope to share
-        my work with you here.
-        <br />
-        You'll find my latest creations, as well as my thoughts and reflections
-        on photography.
-        <br />
-        If you enjoy my work, I'd love to connect with you and share more
-        stories and techniques about photography.
-        <br />
-        Thank you for taking the time to visit, and I hope you find some
-        inspiration and joy here.
-        <br />
-        If you have any questions or feedback about my work or photography in
-        general, feel free to reach out.
-        <br />
-        Looking forward to sharing the joys of photography with you!
-      </p>
-    </div>
+    <Container maxWidth="lg" sx={{ py: 8 }}>
+      <Grid container spacing={4} alignItems="center" justifyContent="center">
+        <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+          <Box
+            component="img"
+            src={PhotographerImg}
+            alt="photographer"
+            sx={{
+              width: '100%',
+              maxHeight: { xs: 360, md: '100%' },
+              objectFit: 'cover',
+              borderRadius: 2
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+          <Typography variant="h3" component="h1" gutterBottom>
+            About Me
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 4 }}>
+            Hi,<strong> I'm Jerry, a passionate photographer.</strong>  dedicated to capturing the ephemeral moments of life.
+            <br /><br />
+            My journey in photography...
+          </Typography>
+          <Button 
+            variant="contained" 
+            component={Link} 
+            to="/resume" 
+            sx={{ mt: 2 }}
+          >
+            More
+          </Button>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
-export default AboutPage;
+export default About;
