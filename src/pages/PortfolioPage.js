@@ -10,6 +10,11 @@ import CommentIcon from '@mui/icons-material/Comment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SearchBar from "../components/SearchBar";
 
+const API_KEY_FLICKR = process.env.REACT_APP_API_KEY_FLICKR;
+const API_KEY_NASA = process.env.REACT_APP_API_KEY_NASA;
+const FLICKR_USER_ID = process.env.REACT_APP_FLICKR_USER_ID;
+
+
 const PortfolioPage = () => {
   const [photos, setPhotos] = useState([]);
   const [selectDate, setSelectDate] = useState(dayjs().subtract(12, "day"));
@@ -22,7 +27,7 @@ const PortfolioPage = () => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(
-          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY_FLICKR}&user_id=${process.env.REACT_APP_FLICKR_USER_ID}&text=${encodeURIComponent(searchTerm)}&format=json&nojsoncallback=1`
+          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY_FLICKR}&user_id=${FLICKR_USER_ID}&text=${encodeURIComponent(searchTerm)}&format=json&nojsoncallback=1`
         );
 
         const newphotos = response.data.photos.photo.map(async (photo) => {
@@ -41,7 +46,7 @@ const PortfolioPage = () => {
     const fetchPhotoInfo = async (photo_id) => {
       try {
         const photo_info = await axios.get(
-          `https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${process.env.REACT_APP_API_KEY_FLICKR}&photo_id=${photo_id}&format=json&nojsoncallback=1`
+          `https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${API_KEY_FLICKR}&photo_id=${photo_id}&format=json&nojsoncallback=1`
         );
         return photo_info.data.photo;
       } catch (error) {
@@ -54,7 +59,7 @@ const PortfolioPage = () => {
     const fetchEarthPhoto = async (selectDate) => {
       try {
         const earthPhoto = await axios.get(
-          `https://api.nasa.gov/EPIC/api/natural/date/${dayjs(selectDate).format("YYYY-MM-DD")}?api_key=${process.env.REACT_APP_API_KEY_NASA}`);
+          `https://api.nasa.gov/EPIC/api/natural/date/${dayjs(selectDate).format("YYYY-MM-DD")}?api_key=${API_KEY_NASA}`);
           if (earthPhoto.data.length === 0) {
             alert("No image on that date. Please try again later.");
             setEarthPhoto([]);
