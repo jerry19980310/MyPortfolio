@@ -19,7 +19,6 @@ const NavBar = (props) => {
     { text: 'About', path: '/about' },
     { text: 'Portfolio', path: '/portfolio' },
     { text: 'Resume', path: '/resume' },
-    { text: 'Contact', path: '/contact' },
   ];
 
   return (
