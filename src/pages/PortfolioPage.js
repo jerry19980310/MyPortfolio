@@ -20,6 +20,7 @@ const PortfolioPage = () => {
   const [selectDate, setSelectDate] = useState(dayjs().subtract(12, "day"));
   const [earthPhoto, setEarthPhoto] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filteredPhotos, setFilteredPhotos] = useState([]);
   const [error, setError] = useState(null);
 
 
@@ -27,7 +28,7 @@ const PortfolioPage = () => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(
-          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY_FLICKR}&user_id=${FLICKR_USER_ID}&text=${encodeURIComponent(searchTerm)}&format=json&nojsoncallback=1`
+          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY_FLICKR}&user_id=${FLICKR_USER_ID}&format=json&nojsoncallback=1`
         );
 
         const newphotos = response.data.photos.photo.map(async (photo) => {
@@ -36,6 +37,7 @@ const PortfolioPage = () => {
         });
 
         setPhotos(await Promise.all(newphotos));
+        setFilteredPhotos(await Promise.all(newphotos));
       } catch (error) {
         console.error("Error fetching data: ", error);
         alert("Error fetching data. Please try again later.");
@@ -77,7 +79,13 @@ const PortfolioPage = () => {
 
     fetchPhotos();
     fetchEarthPhoto(selectDate)
-  }, [searchTerm, selectDate]);
+  }, [selectDate]);
+
+  useEffect(() => {
+    // Filter photos based on search term
+    const filtered = photos.filter(photo => photo.title.includes(searchTerm));
+    setFilteredPhotos(filtered);
+  }, [searchTerm, photos]);
 
   //search bar use props and header footer
 if (error) {
@@ -95,7 +103,7 @@ if (error) {
       
       {/* Main content photo cards */}
       <Grid item xs={12} lg={9} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        {photos.map((photo) => (
+        {filteredPhotos.map((photo) => (
           <Grid item xs={12} sm={6} md={4} lg={4} key={photo.id} style={{ padding: '10px' }}>
             <Card elevation={5} style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '380px' }}>
               <CardActionArea
