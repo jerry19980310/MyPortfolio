@@ -8,6 +8,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PhotoCameraBackIcon from '@mui/icons-material/PhotoCameraBack';
 import CommentIcon from '@mui/icons-material/Comment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import SearchBar from "../components/SearchBar";
 
 const PortfolioPage = () => {
   const [photos, setPhotos] = useState([]);
@@ -73,19 +74,20 @@ const PortfolioPage = () => {
     fetchEarthPhoto(selectDate)
   }, [searchTerm, selectDate]);
 
+  //search bar use props and header footer
+if (error) {
+    return (
+      <div>
+        <h1>Error fetching data. Please try again later.</h1>
+      </div>
+    );
+}
 
   return (
     <Grid container spacing={3} style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
       {/* Search */}
-      <Grid item xs={12} style={{ margin: '20px 0' }}>
-        <TextField
-          fullWidth
-          label="Search Photos"
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </Grid>
+      <SearchBar onSubmit={setSearchTerm} />
+
 
       {/* Main content photo cards */}
       <Grid item xs={12} lg={9} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
