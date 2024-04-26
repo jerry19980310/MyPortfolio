@@ -92,8 +92,7 @@ if (error) {
     <Grid container spacing={3} style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
       {/* Search */}
       <SearchBar onSubmit={setSearchTerm} />
-
-
+      
       {/* Main content photo cards */}
       <Grid item xs={12} lg={9} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
         {photos.map((photo) => (

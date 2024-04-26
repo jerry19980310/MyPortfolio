@@ -22,6 +22,6 @@ export const theme = createTheme({
       light: '#E9DB5D',
       dark: '#A29415',
       contrastText: '#242105',
-    }
+    },
   },
 });
