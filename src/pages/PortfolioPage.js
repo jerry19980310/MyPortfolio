@@ -83,7 +83,7 @@ const PortfolioPage = () => {
 
   useEffect(() => {
     // Filter photos based on search term
-    const filtered = photos.filter(photo => photo.title.includes(searchTerm));
+    const filtered = photos.filter(photo => photo.title.toLowerCase().includes(searchTerm.toLowerCase()));
     setFilteredPhotos(filtered);
   }, [searchTerm, photos]);
 
