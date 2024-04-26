@@ -8,7 +8,7 @@ function SearchBar(props){
 
     return (
         <Grid container spacing={1} sx={{ mt: 2 }} style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
-            <Grid item xs={11} style={{ margin: '10px 0' }}>
+            <Grid item xs={9} style={{ margin: '10px 0' }}>
                 <TextField
                 fullWidth
                 label="Search Photos"
@@ -21,8 +21,8 @@ function SearchBar(props){
                     }}}
                 />
             </Grid>
-            <Grid item style={{ margin: '20px 0' }}>
-                <Button variant="contained" sx={{ marginLeft: "auto" }} color="primary" startIcon={<SearchOutlinedIcon />} onClick={() => props.onSubmit(search)} >
+            <Grid item style={{ margin: '15px 0' }}>
+                <Button variant="contained" size="large" sx={{ marginLeft: "auto" }} color="primary" startIcon={<SearchOutlinedIcon />} onClick={() => props.onSubmit(search)} >
                     Search       
                 </Button>
             </Grid>

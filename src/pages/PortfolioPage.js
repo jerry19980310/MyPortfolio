@@ -96,7 +96,7 @@ if (error) {
       {/* Main content photo cards */}
       <Grid item xs={12} lg={9} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
         {photos.map((photo) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={photo.id} style={{ padding: '10px' }}>
+          <Grid item xs={12} sm={6} md={4} lg={4} key={photo.id} style={{ padding: '10px' }}>
             <Card elevation={5} style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '380px' }}>
               <CardActionArea
                 component="a"
