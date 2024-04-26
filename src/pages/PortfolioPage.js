@@ -8,6 +8,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import PhotoCameraBackIcon from '@mui/icons-material/PhotoCameraBack';
 import CommentIcon from '@mui/icons-material/Comment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import SearchBar from "../components/SearchBar";
+
+const API_KEY_FLICKR = process.env.REACT_APP_API_KEY_FLICKR;
+const API_KEY_NASA = process.env.REACT_APP_API_KEY_NASA;
+const FLICKR_USER_ID = process.env.REACT_APP_FLICKR_USER_ID;
+
 
 const PortfolioPage = () => {
   const [photos, setPhotos] = useState([]);
@@ -21,7 +27,7 @@ const PortfolioPage = () => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(
-          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${process.env.REACT_APP_API_KEY_FLICKR}&user_id=${process.env.REACT_APP_FLICKR_USER_ID}&text=${encodeURIComponent(searchTerm)}&format=json&nojsoncallback=1`
+          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY_FLICKR}&user_id=${FLICKR_USER_ID}&text=${encodeURIComponent(searchTerm)}&format=json&nojsoncallback=1`
         );
 
         const newphotos = response.data.photos.photo.map(async (photo) => {
@@ -40,7 +46,7 @@ const PortfolioPage = () => {
     const fetchPhotoInfo = async (photo_id) => {
       try {
         const photo_info = await axios.get(
-          `https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${process.env.REACT_APP_API_KEY_FLICKR}&photo_id=${photo_id}&format=json&nojsoncallback=1`
+          `https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${API_KEY_FLICKR}&photo_id=${photo_id}&format=json&nojsoncallback=1`
         );
         return photo_info.data.photo;
       } catch (error) {
@@ -53,7 +59,7 @@ const PortfolioPage = () => {
     const fetchEarthPhoto = async (selectDate) => {
       try {
         const earthPhoto = await axios.get(
-          `https://api.nasa.gov/EPIC/api/natural/date/${dayjs(selectDate).format("YYYY-MM-DD")}?api_key=${process.env.REACT_APP_API_KEY_NASA}`);
+          `https://api.nasa.gov/EPIC/api/natural/date/${dayjs(selectDate).format("YYYY-MM-DD")}?api_key=${API_KEY_NASA}`);
           if (earthPhoto.data.length === 0) {
             alert("No image on that date. Please try again later.");
             setEarthPhoto([]);
@@ -73,19 +79,20 @@ const PortfolioPage = () => {
     fetchEarthPhoto(selectDate)
   }, [searchTerm, selectDate]);
 
+  //search bar use props and header footer
+if (error) {
+    return (
+      <div>
+        <h1>Error fetching data. Please try again later.</h1>
+      </div>
+    );
+}
 
   return (
     <Grid container spacing={3} style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
       {/* Search */}
-      <Grid item xs={12} style={{ margin: '20px 0' }}>
-        <TextField
-          fullWidth
-          label="Search Photos"
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </Grid>
+      <SearchBar onSubmit={setSearchTerm} />
+
 
       {/* Main content photo cards */}
       <Grid item xs={12} lg={9} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>

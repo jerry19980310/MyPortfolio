@@ -1,6 +1,7 @@
 import { Container, Grid, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import PhotographerImg from '../assets/Designer4.png';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const About = () => {
   return (
@@ -33,6 +34,7 @@ const About = () => {
             component={Link} 
             to="/resume" 
             sx={{ mt: 2 }}
+            endIcon={<MoreHorizIcon />}
           >
             More
           </Button>

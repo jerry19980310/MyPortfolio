@@ -1,69 +1,66 @@
 import React, { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Drawer } from '@mui/material';
-import LandscapeIcon from '@mui/icons-material/Landscape';
+import { AppBar, Toolbar, IconButton, Typography, Button, Drawer, Box, List, ListItem, ListItemText } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
+import avatarImage from '../assets/Designer5.png';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';// Drawer close icon
 
 
-const pages = ['Home', 'About', 'Resume', 'Portfolio'];
+const NavBar = (props) => {
+  const [open, setOpen] = useState(false);
 
-const NavBar = () => {
+  const toggleDrawer = (open) => () => {
+    setOpen(open);
+  };
 
-    const [open, setOpen] = useState(false);
+  const navItems = [
+    { text: 'Home', path: '/' },
+    { text: 'About', path: '/about' },
+    { text: 'Portfolio', path: '/portfolio' },
+    { text: 'Resume', path: '/resume' },
+    { text: 'Contact', path: '/contact' },
+  ];
 
-    const toggleDrawer = (newOpen) => () => {
-      setOpen(newOpen);
-    };
-
-const theme = createTheme({
-    palette: {
-        ochre: {
-        main: '#C3986D',
-        light: '#C3986D',
-        dark: '#512d15',
-        contrastText: '#242105',
-        },
-    },
-    });
-
-    return (
-        <ThemeProvider theme={theme}>
-<AppBar position="static" theme={theme} color="ochre">
-            <Toolbar variant="dense">
-                <IconButton size="large" edge="start" color="inherit" aria-label="logop" sx={{display:{xs:'none', md:'flex'}}} component={RouterLink} to={"/"}>
-                    <Avatar alt="myicon" src="./Designer5.png" />
-                </IconButton>
-                <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 , display:{xs:'none', md:'flex'}}}>
-                    Jerry Studio
-                </Typography>
-                <Box sx={{display:{xs:'none', md:'flex'}}}>
-                    {pages.map((page) => (
-                        <Button key={page} color="inherit" component={RouterLink} to={page === 'Home' ? '/' : `/${page}`}>{page}</Button>
-                    ))}
-                </Box>
-                <IconButton size="large" edge="start" color="inherit" aria-label="logop" sx={{display:{xs:'flex', md:'none'}}} >
-                    <Avatar alt="myicon" src="./Designer5.png" />
-                </IconButton>
-                <Typography variant="h6" color="inherit" component="div" sx={{ flexGrow: 1 , display:{xs:'flex', md:'none'}}}>
-                    Jerry Studio
-                </Typography>
-                <Box sx={{ display:{xs:'flex', md:'none'}}}>
-                    <IconButton size="large" edge="start" color="inherit" onClick={toggleDrawer(true)}>
-                        <MenuIcon />
-                    </IconButton>
-                    <Drawer anchor="right" open={open} onClose={toggleDrawer(false)} sx={{display:{xs:'flex', md:'none'}}}>
-                        {pages.map((page) => (
-                            <Button onClick={toggleDrawer(false)} key={page} color="inherit" component={RouterLink} to={page === 'Home' ? '/' : `/${page}`}>{page}</Button>
-                        ))}
-                    </Drawer>
-                </Box>
-            </Toolbar>
-        </AppBar>
-        </ThemeProvider>
+  return (
+    <AppBar position="static" color="primary">
+      <Toolbar>
+        {/* Avatar  */}
+        <IconButton size="large" edge="start" color="inherit" aria-label="logo" sx={{ marginRight: 'auto' }} component={RouterLink} to="/">
+          <Avatar alt="Jerry Studio" src={avatarImage} />
+        </IconButton>
         
-    );
+        {/* "Jerry Studio" */}
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, display: { xs: 'flex', lg: 'block' } }}>
+          {props.title}
+        </Typography>
+
+        {/* Menu icon*/}
+        <IconButton edge="end" color="inherit" aria-label="menu" sx={{ marginLeft: 'auto', display: { md: 'none' } }} onClick={toggleDrawer(true)}>
+          <MenuIcon />
+        </IconButton>
+
+        {/* Buttons visible only on md screens and above */}
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, marginLeft: 'auto' }}>
+        {navItems.map((item) => (
+          <Button key={item.text} size="large" color="inherit" component={RouterLink}  to={item.path}>{item.text}</Button>
+        ))}
+        </Box>
+      </Toolbar>
+      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)} sx={{ width: 250 }}>
+        <IconButton onClick={toggleDrawer(false)} sx={{ justifyContent: 'flex-start' }}>
+          <ChevronRightIcon />
+        </IconButton>
+        <List>
+          {navItems.map((item) => (
+            <ListItem  key={item.text} component={RouterLink} to={item.path} onClick={toggleDrawer(false)}>
+              <ListItemText primary={item.text} sx={{ fontSize: '0.875rem' }} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </AppBar>
+  );
 };
 
 export default NavBar;
