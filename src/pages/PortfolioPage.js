@@ -9,6 +9,7 @@ import PhotoCameraBackIcon from '@mui/icons-material/PhotoCameraBack';
 import CommentIcon from '@mui/icons-material/Comment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SearchBar from "../components/SearchBar";
+import PublicIcon from '@mui/icons-material/Public';
 
 const API_KEY_FLICKR = process.env.REACT_APP_API_KEY_FLICKR;
 const API_KEY_NASA = process.env.REACT_APP_API_KEY_NASA;
@@ -17,17 +18,20 @@ const FLICKR_USER_ID = process.env.REACT_APP_FLICKR_USER_ID;
 
 const PortfolioPage = () => {
   const [photos, setPhotos] = useState([]);
-  const [selectDate, setSelectDate] = useState(dayjs().subtract(12, "day"));
-  const [earthPhoto, setEarthPhoto] = useState([]);
+  const [selectDate, setSelectDate] = useState(dayjs().subtract(1, "day"));
+  const [nasaPhoto, setNasaPhoto] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filteredPhotos, setFilteredPhotos] = useState([]);
   const [error, setError] = useState(null);
+
+  
 
 
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
         const response = await axios.get(
-          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY_FLICKR}&user_id=${FLICKR_USER_ID}&text=${encodeURIComponent(searchTerm)}&format=json&nojsoncallback=1`
+          `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY_FLICKR}&user_id=${FLICKR_USER_ID}&format=json&nojsoncallback=1`
         );
 
         const newphotos = response.data.photos.photo.map(async (photo) => {
@@ -36,9 +40,10 @@ const PortfolioPage = () => {
         });
 
         setPhotos(await Promise.all(newphotos));
+        setFilteredPhotos(await Promise.all(newphotos));
       } catch (error) {
         console.error("Error fetching data: ", error);
-        alert("Error fetching data. Please try again later.");
+        alert("Error fetching photo(search function). Please try again later.");
         setError(true);
       }
     };
@@ -51,33 +56,33 @@ const PortfolioPage = () => {
         return photo_info.data.photo;
       } catch (error) {
         console.error("Error fetching data: ", error);
-        alert("Error fetching data. Please try again later.");
+        alert("Error fetching photo (get Info). Please try again later.");
         setError(true);
       }
     };
 
-    const fetchEarthPhoto = async (selectDate) => {
+    const fetchNasaPhoto = async (selectDate) => {
       try {
-        const earthPhoto = await axios.get(
-          `https://api.nasa.gov/EPIC/api/natural/date/${dayjs(selectDate).format("YYYY-MM-DD")}?api_key=${API_KEY_NASA}`);
-          if (earthPhoto.data.length === 0) {
-            alert("No image on that date. Please try again later.");
-            setEarthPhoto([]);
-            setSelectDate(dayjs().subtract(12, "day"));
-          }
-          else{
-            setEarthPhoto(earthPhoto.data[0]);
-          }
+        const nasaPhoto = await axios.get(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY_NASA}&date=${dayjs(selectDate).format("YYYY-MM-DD")}`);
+          setNasaPhoto(nasaPhoto.data);
+
       } catch (error) {
         console.error("Error fetching data: ", error);
-        alert("Error fetching data. Please try again later.");
+        alert("No image on that date. Please try again later.");
+        setSelectDate(dayjs().subtract(1, "day"));
         
       }
     };
 
     fetchPhotos();
-    fetchEarthPhoto(selectDate)
-  }, [searchTerm, selectDate]);
+    fetchNasaPhoto(selectDate)
+  }, [selectDate]);
+
+  useEffect(() => {
+    // Filter photos based on search term
+    const filtered = photos.filter(photo => photo.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    setFilteredPhotos(filtered);
+  }, [searchTerm, photos]);
 
   //search bar use props and header footer
 if (error) {
@@ -92,13 +97,12 @@ if (error) {
     <Grid container spacing={3} style={{ width: '100%', margin: '0 auto', padding: '20px' }}>
       {/* Search */}
       <SearchBar onSubmit={setSearchTerm} />
-
-
+      
       {/* Main content photo cards */}
       <Grid item xs={12} lg={9} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
-        {photos.map((photo) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={photo.id} style={{ padding: '10px' }}>
-            <Card elevation={5} style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '380px' }}>
+        {filteredPhotos.map((photo) => (
+          <Grid item xs={12} sm={6} md={4} lg={4} key={photo.id} style={{ padding: '10px' }}>
+            <Card elevation={5} style={{ width: '100%', display: 'flex', flexDirection: 'column', height: '430px' }}>
               <CardActionArea
                 component="a"
                 href={`${photo.photo_info.urls.url[0]._content}`}
@@ -108,7 +112,7 @@ if (error) {
               >
                 <CardMedia
                   component="img"
-                  style={{ height: 200, width: '100%', objectFit: 'cover' }}
+                  style={{ height: 300, width: '100%', objectFit: 'cover' }}
                   image={`https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`}
                   alt={photo.title || "Photo"}
                 />
@@ -141,7 +145,7 @@ if (error) {
       <Grid item xs={12} lg={3} style={{ display: 'flex', flexDirection: 'column' }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Typography gutterBottom variant="h6" component="div">
-            The Earth on a Specific Date
+            Astronomy Picture of the Day
           </Typography>
           <DatePicker
             label="Date"
@@ -155,9 +159,18 @@ if (error) {
             <CardMedia
               component="img"
               height="400"
-              image={`https://epic.gsfc.nasa.gov/archive/natural/${dayjs(selectDate).format("YYYY/MM/DD")}/png/${earthPhoto.image}.png`}
+              image={`${nasaPhoto.url}`}
               alt="Earth Photo"
             />
+            <CardContent style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <Typography gutterBottom variant="h6" component="div" textAlign='center'>
+                <PublicIcon style={{ verticalAlign: "middle", marginRight: 5 }} />
+                {nasaPhoto.title}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" textAlign='left'>
+                {nasaPhoto.explanation || "No description available."}
+              </Typography>
+            </CardContent>
           </Card>
         </LocalizationProvider>
       </Grid>
