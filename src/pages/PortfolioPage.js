@@ -24,9 +24,6 @@ const PortfolioPage = () => {
   const [filteredPhotos, setFilteredPhotos] = useState([]);
   const [error, setError] = useState(null);
 
-  
-
-
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
