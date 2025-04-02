@@ -1,0 +1,37 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm install -f
+
+      - name: Create .env file
+        run: |
+          echo "REACT_APP_API_KEY_GITHUB=${{ secrets.REACT_APP_API_KEY_GITHUB }}" >> .env
+          echo "REACT_APP_GITHUB_USER=${{ secrets.REACT_APP_GITHUB_USER }}" >> .env
+          echo "REACT_APP_API_KEY_NASA=${{ secrets.REACT_APP_API_KEY_NASA }}" >> .env
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.REACT_APP_API_KEY_GITHUB }}
+          publish_dir: ./build
