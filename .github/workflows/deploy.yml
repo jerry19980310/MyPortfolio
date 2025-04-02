@@ -26,6 +26,7 @@ jobs:
           echo "REACT_APP_API_KEY_GITHUB=${{ secrets.REACT_APP_API_KEY_GITHUB }}" >> .env
           echo "REACT_APP_GITHUB_USER=${{ secrets.REACT_APP_GITHUB_USER }}" >> .env
           echo "REACT_APP_API_KEY_NASA=${{ secrets.REACT_APP_API_KEY_NASA }}" >> .env
+          echo "GENERATE_SOURCEMAP=false" >> .env
 
       - name: Build project
         run: npm run build
