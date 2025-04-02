@@ -12,7 +12,7 @@ function Copyright(props) {
   return (
     <Typography variant="body2" color="primary"  align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://qut.edu.au/">
+      <Link color="inherit" href="mailto:jerrykao0310@gmail.com">
         {props.title}
       </Link>{' '}
       {new Date().getFullYear()}
@@ -37,13 +37,10 @@ function Footer(props) {
           {description}
         </Typography>
         <Stack direction="row" spacing={2} sx={{ mt: 1 }}>
-          <Link href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          <Link href="https://www.facebook.com/kepin25333985" target="_blank" rel="noopener noreferrer">
             <FacebookIcon />
           </Link>
-          <Link href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-            <TwitterIcon />
-          </Link>
-          <Link href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+          <Link href="https://www.linkedin.com/in/yuchiasheng-kao-551999303/" target="_blank" rel="noopener noreferrer">
             <LinkedInIcon />
           </Link>
         </Stack>

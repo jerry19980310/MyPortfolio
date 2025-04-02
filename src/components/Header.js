@@ -4,7 +4,7 @@ import NavBar from "./NavBar";
 
 function Header() {
   return (
-    <NavBar title="Jerry Studio" pages={['Home', 'About', 'Resume', 'Portfolio']} />
+    <NavBar title="Jerry Kao" pages={['Home', 'About', 'Resume', 'Portfolio']} />
   );
 }
 

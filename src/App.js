@@ -5,10 +5,19 @@ import ResumePage from './pages/ResumePage';
 import PortfolioPage from './pages/PortfolioPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { useTranslation } from 'react-i18next';
 
 
 
 function App() {
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
+
   return (
     <BrowserRouter>
       <Header />
@@ -18,7 +27,7 @@ function App() {
         <Route path="resume" element={<ResumePage />} />
         <Route path="portfolio" element={<PortfolioPage />} />
       </Routes>
-      <Footer title="Jerry Studio" description="Feel free to contact us."/>
+      <Footer title="Jerry Kao" description={t('contact')} />
     </BrowserRouter>
   );
 }
