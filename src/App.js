@@ -14,7 +14,7 @@ function App() {
   const { t } = useTranslation();
 
   return (
-    <BrowserRouter basename="/MyPortfolio">
+    <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
