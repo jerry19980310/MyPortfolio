@@ -4,7 +4,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link as RouterLink } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import avatarImage from '../assets/Designer5.png';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';// Drawer close icon
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '@mui/icons-material/Close';
 

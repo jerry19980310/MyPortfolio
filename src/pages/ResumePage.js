@@ -6,14 +6,13 @@ import WorkIcon from '@mui/icons-material/WorkOutline'
 import SchoolIcon from '@mui/icons-material/School';
 import BrushIcon from '@mui/icons-material/Brush';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import BookIcon from '@mui/icons-material/Book';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-import TimelineOppositeContent, { timelineOppositeContentClasses, } from '@mui/lab/TimelineOppositeContent';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import { useTranslation } from "react-i18next";
 
 

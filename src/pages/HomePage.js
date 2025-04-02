@@ -7,12 +7,7 @@ import { useTranslation } from 'react-i18next';
 
 const HomePage = () => {
 
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
+  const { t } = useTranslation();
 
   return (
     <Box

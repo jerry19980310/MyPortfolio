@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Typography, Box, IconButton, Container, Link, Avatar, Stack } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import avatarImage from '../assets/Designer5.png';
 

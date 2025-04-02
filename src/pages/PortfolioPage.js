@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Grid, Card, CardContent, Typography, CardActionArea, Box, CardMedia, TextField } from "@mui/material";
+import { Grid, Card, CardContent, Typography, CardActionArea, CardMedia, TextField } from "@mui/material";
 import SearchBar from "../components/SearchBar";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import PhotoCameraBackIcon from '@mui/icons-material/PhotoCameraBack';
 import PublicIcon from '@mui/icons-material/Public';
 import { useTranslation } from "react-i18next";
 
-// 手動設置專案資料
-const GITHUB_USER = process.env.REACT_APP_GITHUB_USER;
+
 const GITHUB_TOKEN = process.env.REACT_APP_API_KEY_GITHUB;
 const API_KEY_NASA = process.env.REACT_APP_API_KEY_NASA;
 

@@ -11,12 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 function App() {
 
-  const { i18n, t } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
+  const { t } = useTranslation();
 
   return (
     <BrowserRouter basename="/MyPortfolio">

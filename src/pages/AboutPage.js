@@ -12,11 +12,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { useTranslation } from "react-i18next";
 
 const About = () => {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
 
   const highlightText = (text, keywords) => {
     if (!keywords) return text;

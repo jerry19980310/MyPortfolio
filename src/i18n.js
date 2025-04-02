@@ -12,7 +12,6 @@ i18n
                     welcome: "Welcome to my website!",
                     home: "Home",
                     about: "About Me",
-                    resume: "Resume",
                     portfolio: "Portfolio",
                     contact: "Feel free to contact me.",
                     view_portfolio: "View Portfolio",
