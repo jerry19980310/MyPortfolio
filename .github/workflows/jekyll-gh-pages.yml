@@ -36,6 +36,8 @@ jobs:
       # Build the app
       - name: Build the app
         run: npm run build
+        env:
+          CI: false
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
